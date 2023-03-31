@@ -1,1 +1,155 @@
-{}
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "entranceFees",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "details__NotSufficientAge",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "details__NotSufficientAmount",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "details__SeatsFullfilled",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "uint16",
+        "name": "age",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "add",
+        "type": "string"
+      }
+    ],
+    "name": "EntreDetails",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "ShowDetails",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "Name",
+            "type": "string"
+          },
+          {
+            "internalType": "uint16",
+            "name": "Age",
+            "type": "uint16"
+          },
+          {
+            "internalType": "uint256",
+            "name": "Id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "Address",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct data.Details",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "ShowTotalFunds",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getDetailCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getEntranceFees",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

@@ -1,6 +1,6 @@
 import { ConnectButton } from "web3uikit";
 import Link from "next/link";
-
+import { ENSAvatar } from "web3uikit";
 
 export default function Headers(){
     return (
@@ -19,14 +19,18 @@ export default function Headers(){
                     alignItems: "center"
                 }}>
                 <Link href={"/"}>
-                    Home page |
+                    Home page  |
                 </Link>
                 
                 <Link href={"/dataDisplay"}>
-                    | Display page
+                    |  Display page  |
+                </Link>
+
+                <Link href={"/addDetails"}>
+                    |  Add Details
                 </Link>
                 
-                <ConnectButton moralisAuth={false}/>
+                <ConnectButton moralisAuth={false}></ConnectButton>
             </div>
             
         </nav>
