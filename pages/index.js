@@ -19,6 +19,7 @@ export default function Home() {
   console.log(typeof contractAddress)
   const [currentBalance, setCurrentBalance] = useState("0")
   const [entranceAmount, setEntranceAmount] = useState("0")
+  const [count, setCount] = useState("0")
 
   const {runContractFunction: getBalanceOf} = useWeb3Contract({
     abi: contractAbi,
@@ -33,6 +34,13 @@ export default function Home() {
     abi: contractAbi,
     contractAddress: contractAddress,
     functionName: "getEntranceFees",
+    params: {}
+  })
+
+  const {runContractFunction: getTotalCount} = useWeb3Contract({
+    abi: contractAbi,
+    contractAddress: contractAddress,
+    functionName: "getDetailCount",
     params: {}
   })
   
@@ -55,6 +63,10 @@ export default function Home() {
     console.log(`Entrance amount is ${formattedEntranceFees}`)
     setEntranceAmount(formattedEntranceFees)
 
+    const getTotalCountFromCall = (await getTotalCount({onError: (error)=>console.log(error)})).toString()
+    console.log(`Total number of players is ${getTotalCountFromCall}`)
+    setCount(getTotalCountFromCall)
+
 
   }
   return (
@@ -73,7 +85,9 @@ export default function Home() {
 
           <p>Current balance of the account {account} is {currentBalance} ETH</p>
           <br></br>
-          <p>Entrance fees is {entranceAmount} ETH</p> 
+          <p>Entrance fees is {entranceAmount} WEI</p> 
+          <br></br>
+          <p>Total number of players is {count}</p>
           
         </div>
         
@@ -82,3 +96,4 @@ export default function Home() {
         
   )
 }
+

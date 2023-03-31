@@ -1,11 +1,24 @@
-import { Form } from "web3uikit"
-import { useWeb3Contract } from "react-moralis"
+import { Form, useNotification } from "web3uikit"
+import { useMoralis, useWeb3Contract } from "react-moralis"
 import { contractAbi, contractAddress } from "../Constants"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function addDetails(){
     const {runContractFunction} = useWeb3Contract()
-    const [entranceFees, setEntranceFees] = useState("0")
+    const {isWeb3Enabled} = useMoralis
+    const entranceFees = 1000000000000000000
+
+    const dispatch = useNotification()
+
+    const handleNewNotification = () => {
+        dispatch({
+            type: "info",
+            message: "Details added sucessfully!",
+            title: "Transaction Notification",
+            position: "topR",
+            icon: "bell",
+        })
+    }
 
     async function handleSubmit(data){
         const nameToAdd = data.data[0].inputResult
@@ -14,7 +27,7 @@ export default function addDetails(){
         const AddressToAdd = data.data[3].inputResult
         
         
-        const detailsFromContract = await runContractFunction({
+        const tx = await runContractFunction({
             params:{
                 abi: contractAbi,
                 contractAddress: contractAddress,
@@ -29,21 +42,12 @@ export default function addDetails(){
             },
             onError: (error) => console.log(error),    
         })
-        handleSuccess(detailsFromContract)
-        
+        await tx.wait(1)
+        handleNewNotification()
+        console.log("Added")
 
-        
     }
-
-    const handleSuccess = async (tx) => {
-        try {
-            await tx.wait(1)
-            console.log("Details added sucessfully.")
-            
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    
     return(
         <>
         <div style={{
