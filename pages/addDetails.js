@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 
 export default function addDetails(){
     const {runContractFunction} = useWeb3Contract()
-    const {isWeb3Enabled} = useMoralis
+    const {isWeb3Enabled} = useMoralis()
     const entranceFees = 1000000000000000000
 
     const dispatch = useNotification()
@@ -45,68 +45,79 @@ export default function addDetails(){
         await tx.wait(1)
         handleNewNotification()
         console.log("Added")
+        console.log(typeof tx)
 
     }
     
     return(
         <>
-        <div style={{
+        <div >
+            {isWeb3Enabled ?
+                (
+                    <div style={{
             
-            margin:"2%",
-            marginLeft: "35%",
-            marginRight: "15%",
-            justifyContent: "center",
-            alignItems: "center"
-        }}>
-            <Form
-                buttonConfig={{
-                    onClick: function noRefCheck(){},
-                    theme: 'primary'
-                }}
-                onSubmit={handleSubmit}
-                title="Entre the details"
-                data={
-                        [
-                            {
-                                inputWidth:"55%",
-                                name: "Enter your name",
-                                type: "text",
-                                value: "",
-                                key: "NameToStore",
-                            },
-                            {
-                                inputWidth:"55%",
-                                name: "Enter your Age",
-                                type: "number",
-                                value: "",
-                                key: "ageToStore",
-                            },
-                            {
-                                inputWidth:"55%",
-                                name: "Enter your ID number",
-                                type: "number",
-                                value: "",
-                                validation:{
-                                    required:true,
-                                    numberMax:100,
-                                    numberMin:1
-                                },
-                                key: "IDToStore",
-                            },
-                            {
-                                inputWidth:"55%",
-                                name: "Enter your permanant address",
-                                type: "textarea",
-                                validation:{
-                                    characterMaxLength:250
-                                },
-                                value: "",
-                                key: "AddressToStore",
-                            }
+                        margin:"2%",
+                        marginLeft: "35%",
+                        marginRight: "5%",
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}>
+                            <Form
+                            buttonConfig={{
+                                onClick: function noRefCheck(){},
+                                theme: 'primary'
+                            }}
+                            onSubmit={handleSubmit}
+                            title="Entre the details"
+                            data={
+                                    [
+                                        {
+                                            inputWidth:"55%",
+                                            name: "Enter your name",
+                                            type: "text",
+                                            value: "",
+                                            key: "NameToStore",
+                                        },
+                                        {
+                                            inputWidth:"55%",
+                                            name: "Enter your Age",
+                                            type: "number",
+                                            value: "",
+                                            key: "ageToStore",
+                                        },
+                                        {
+                                            inputWidth:"55%",
+                                            name: "Enter your ID number",
+                                            type: "number",
+                                            value: "",
+                                            validation:{
+                                                required:true,
+                                                numberMax:100,
+                                                numberMin:1
+                                            },
+                                            key: "IDToStore",
+                                        },
+                                        {
+                                            inputWidth:"55%",
+                                            name: "Enter your permanant address",
+                                            type: "textarea",
+                                            validation:{
+                                                characterMaxLength:250
+                                            },
+                                            value: "",
+                                            key: "AddressToStore",
+                                        }
 
-                        ]
-                    }
-            />
+                                    ]
+                                }
+                        />
+                    </div>
+                ):(
+                    <div>
+                        Connect to wallet
+                    </div>
+                )}
+            
             
         </div>
             

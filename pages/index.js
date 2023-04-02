@@ -7,6 +7,8 @@ import {contractAbi,contractAddress} from "../Constants"
 import { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
 import Headers from '@/components/Header'
+import Link from 'next/link'
+import { Button,Information,Loading } from 'web3uikit'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -51,6 +53,17 @@ export default function Home() {
     }    
   },[account,isWeb3Enabled])
   
+  function handleClick(){
+    return(
+      <Loading
+        fontSize={12}
+        size={12}
+        spinnerColor="#2E7DAF"
+        spinnerType="wave"
+        text="Loading..."
+      />
+    )
+  }
 
   async function updateUIValues(){
     const balanceFunctionCall = (await getBalanceOf({onError: (error)=>console.log(error)})).toString()
@@ -71,28 +84,52 @@ export default function Home() {
   }
   return (
     <div>
+          {isWeb3Enabled ?(
+                  <div style={{
+                        margin: "1.3%",
+                        fontFamily: "sans-serif",
+                        alignContent: "center"
+                      }}>
+                        <div style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          padding: "1.5%"
+                      }}>
+              
+                      <Information
+                      topic='Current balance of the account {account} is'
+                      information={<h4>{currentBalance} ETH</h4>}
+                      
+                      /> 
+                      <br></br>
+                      <Information
+                      topic='Entrance fees is'
+                      information={<b>{entranceAmount} WEI</b>}
+                      /> 
+                      <br></br>
+                      <p>Total number of players is <b>{count}</b></p>
+                      <br></br>
+                      <Link href={"/dataDisplay"} style={{display:"flex", flexDirection:"row", gap:"0.5%",alignItems:"center"}}>
+                        Click to get the Student details
+                          <Button
+                            text="Outline Button"
+                            theme="outline"
+                          />
+                          
+                      </Link>
+            </div>
+      
+     </div>
+          ):(
+            <h3>Please connect to your wallet</h3>
+          )}
+      
           
-       <div style={{
-        margin: "1.3%",
-        fontFamily: "sans-serif",
-        alignContent: "center"
-       }}>
-        <div style={{
-          display: "flex",
-          flexDirection: "column",
-          padding: "1.5%"
-        }}>
-
-          <p>Current balance of the account {account} is {currentBalance} ETH</p>
-          <br></br>
-          <p>Entrance fees is {entranceAmount} WEI</p> 
-          <br></br>
-          <p>Total number of players is {count}</p>
-          
-        </div>
-        
-       </div>
+      
+    
+  
     </div>
+    
         
   )
 }
